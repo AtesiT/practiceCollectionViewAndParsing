@@ -1,6 +1,21 @@
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "cell"
+
+enum NameCells: CaseIterable {
+    case parsePhoto, ParseData, sendData
+    
+    var title: String {
+        switch self {
+        case .parsePhoto:
+            return "Parse Photo"
+        case .ParseData:
+            return "Parse Data"
+        case .sendData:
+            return "Send Data"
+        }
+    }
+}
 
 final class CollectionViewController: UICollectionViewController {
 
