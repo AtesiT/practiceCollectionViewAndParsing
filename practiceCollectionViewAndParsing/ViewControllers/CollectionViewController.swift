@@ -1,15 +1,13 @@
 import UIKit
 
-private let reuseIdentifier = "cell"
-
 enum NameCells: CaseIterable {
-    case parsePhoto, ParseData, sendData
+    case parsePhoto, parseData, sendData
     
     var title: String {
         switch self {
         case .parsePhoto:
             return "Parse Photo"
-        case .ParseData:
+        case .parseData:
             return "Parse Data"
         case .sendData:
             return "Send Data"
@@ -18,28 +16,29 @@ enum NameCells: CaseIterable {
 }
 
 final class CollectionViewController: UICollectionViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-    }
+    
+    private var arrayCells = NameCells.allCases
     
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 0
-    }
-
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return arrayCells.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        guard let cell = cell as? CollectionViewCell else {return UICollectionViewCell()}
+        cell.label.text = arrayCells[indexPath.row].title
         return cell
+    }
+}
+
+extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(width: UIScreen.main.bounds.width - 50, height: 50)
     }
 }
