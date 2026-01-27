@@ -34,11 +34,20 @@ final class CollectionViewController: UICollectionViewController {
 }
 
 extension CollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: UIScreen.main.bounds.width - 50, height: 50)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let userAction = arrayCells[indexPath.item]
+        
+        switch userAction {
+        case .parsePhoto:
+            print("Was tapped button to parse photo")
+        case .parseData:
+            print("Was tapped button to parse data")
+        case .sendData:
+            print("Was tapped button to send data")
+        }
     }
 }
