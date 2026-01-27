@@ -35,6 +35,7 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
             parsePhoto()
         case .parseData:
             print("Was tapped button to parse data")
+            parseData()
         case .sendData:
             print("Was tapped button to send data")
         }
@@ -49,6 +50,16 @@ extension CollectionViewController {
             switch result {
             case .success(let imageData):
                 print(imageData)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    private func parseData() {
+        networkManager.parseData(TheParseData.self, from: NameCells.parseData.link) { result in
+            switch result {
+            case .success(let data):
+                print(data)
             case .failure(let error):
                 print(error)
             }
