@@ -35,4 +35,27 @@ extension NetworkManager {
             }
         }.resume()
     }
+    
+    func sendData(with structData: [String: Any], to url: URL, completion: @escaping (Result<Any, NetworkError>) -> Void) {
+        let serializedData = try? JSONSerialization.data(withJSONObject: structData)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = serializedData
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data, let response else {
+                print(error?.localizedDescription ?? "No error")
+                return
+            }
+            print(response)
+            do {
+                let dataJSON = try JSONSerialization.jsonObject(with: data)
+                completion(.success(dataJSON))
+            } catch {
+                completion(.failure(.dataError))
+            }
+        }.resume()
+    }
+    
 }
