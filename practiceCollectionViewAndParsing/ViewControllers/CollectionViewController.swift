@@ -1,23 +1,10 @@
 import UIKit
 
-enum NameCells: CaseIterable {
-    case parsePhoto, parseData, sendData
-    
-    var title: String {
-        switch self {
-        case .parsePhoto:
-            return "Parse Photo"
-        case .parseData:
-            return "Parse Data"
-        case .sendData:
-            return "Send Data"
-        }
-    }
-}
-
 final class CollectionViewController: UICollectionViewController {
     
-    private var arrayCells = NameCells.allCases
+    private let networkManager = NetworkManager.shared
+    
+    private let arrayCells = NameCells.allCases
     
     // MARK: UICollectionViewDataSource
 
@@ -33,6 +20,7 @@ final class CollectionViewController: UICollectionViewController {
     }
 }
 
+//  MARK: - Actions with Collection
 extension CollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: UIScreen.main.bounds.width - 50, height: 50)
@@ -44,10 +32,26 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         switch userAction {
         case .parsePhoto:
             print("Was tapped button to parse photo")
+            parsePhoto()
         case .parseData:
             print("Was tapped button to parse data")
         case .sendData:
             print("Was tapped button to send data")
+        }
+    }
+}
+
+
+//  MARK: - Functions
+extension CollectionViewController {
+    private func parsePhoto() {
+        networkManager.parsePhoto(from: NameCells.parsePhoto.link) { result in
+            switch result {
+            case .success(let imageData):
+                print(imageData)
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }
