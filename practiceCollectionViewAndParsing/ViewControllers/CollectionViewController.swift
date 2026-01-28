@@ -3,6 +3,7 @@ import UIKit
 final class CollectionViewController: UICollectionViewController {
     
     private let networkManager = NetworkManager.shared
+    private let networkManagerAlamofire = NetworkManagerAlamofire.shared
     
     private let arrayCells = NameCells.allCases
     
@@ -39,6 +40,12 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         case .sendData:
             print("Was tapped button to send data")
             sendData()
+        case .parseDataAlamofire:
+            print("Was tapped button to parse data Alamofire")
+            parseDataAlamofire()
+        case .sendDataAlamofire:
+            print("Was tapped button to send data Alamofire")
+            sendDataAlamofire()
         }
     }
 }
@@ -81,5 +88,11 @@ extension CollectionViewController {
                 print(error)
             }
         }
+    }
+    private func parseDataAlamofire() {
+        networkManagerAlamofire.parseData(from: NameCells.parseDataAlamofire.link)
+    }
+    private func sendDataAlamofire() {
+        networkManagerAlamofire.sendData(to: NameCells.sendDataAlamofire.link)
     }
 }
