@@ -1,7 +1,7 @@
 import Foundation
 
 enum NameCells: CaseIterable {
-    case parsePhoto, parseData, sendData, parseDataAlamofire
+    case parsePhoto, parseData, sendData, parseDataAlamofire, sendDataAlamofire
     
     var title: String {
         switch self {
@@ -13,6 +13,8 @@ enum NameCells: CaseIterable {
             return "Send Data"
         case .parseDataAlamofire:
             return "Parse Data Alamofire"
+        case .sendDataAlamofire:
+            return "Send Data Alamofire"
         }
     }
     
@@ -22,6 +24,7 @@ enum NameCells: CaseIterable {
         case .parseData: return URL(string: "https://jsonplaceholder.typicode.com/posts/1")!
         case .sendData: return URL(string: "https://jsonplaceholder.typicode.com/posts")!
         case .parseDataAlamofire: return URL(string: "https://jsonplaceholder.typicode.com/posts/1")!
+        case .sendDataAlamofire: return URL(string: "https://jsonplaceholder.typicode.com/posts")!
         }
     }
 }

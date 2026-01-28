@@ -19,5 +19,20 @@ final class NetworkManagerAlamofire {
                 }
             }
     }
+    
+    func sendData(to url: URL) {
+        let parameters = TheParseData(userId: 0, id: 0, title: "John", body: "Hi")
+        
+        AF.request(url, method: .post, parameters: parameters, encoder: JSONParameterEncoder(encoder: JSONEncoder()))
+            .validate()
+            .responseDecodable(of: TheParseData.self) { dataResponse in
+                switch dataResponse.result {
+                case .success(let data):
+                    print(data)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+    }
 }
 
