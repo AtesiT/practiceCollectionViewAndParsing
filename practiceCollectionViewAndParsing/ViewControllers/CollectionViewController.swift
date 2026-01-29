@@ -46,6 +46,9 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         case .sendDataAlamofire:
             print("Was tapped button to send data Alamofire")
             sendDataAlamofire()
+        case .parsePhotoAlamofire:
+            print("Was tapped button to parse photo Alamofire")
+            parsePhotoAlamofire()
         }
     }
 }
@@ -94,5 +97,15 @@ extension CollectionViewController {
     }
     private func sendDataAlamofire() {
         networkManagerAlamofire.sendData(to: NameCells.sendDataAlamofire.link)
+    }
+    private func parsePhotoAlamofire() {
+        networkManagerAlamofire.parsePhoto(from: NameCells.parsePhotoAlamofire.link) { result in
+            switch result {
+            case .success(let imageData):
+                print(imageData)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

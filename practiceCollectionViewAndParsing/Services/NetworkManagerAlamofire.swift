@@ -34,5 +34,18 @@ final class NetworkManagerAlamofire {
                 }
             }
     }
+    
+    func parsePhoto(from url: URL, completion: @escaping(Result<Data,AFError>) -> Void) {
+        AF.request(url)
+            .validate()
+            .responseData { dataResponse in
+                switch dataResponse.result {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
 }
 
